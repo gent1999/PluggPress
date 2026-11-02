@@ -1,0 +1,24 @@
+@import "tailwindcss";
+
+html, body {
+  overflow-x: hidden;
+}
+
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  background-color: #09090b;
+}
+
+@property --border-angle {
+  syntax: '<angle>';
+  inherits: false;
+  initial-value: 0deg;
+}
+
+@keyframes spin-border-angle {
+  to { --border-angle: 360deg; }
+}
+
+@keyframes logo-spin {
+  to { transform: rotate(360deg); }
+}
