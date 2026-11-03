@@ -121,6 +121,8 @@ const SERVICES = [
     accentTextClass: 'text-purple-400',
     glowClass: 'bg-purple-500',
     borderColor: 'purple',
+    buyNowPath: '/submit-cry808',
+    buyNowLabel: 'Buy Now — $5 Skip the Line',
   },
   {
     name: 'ArtistHeat',
