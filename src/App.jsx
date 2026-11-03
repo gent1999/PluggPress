@@ -2,6 +2,7 @@ import { Routes, Route } from 'react-router-dom'
 import Home from './pages/Home.jsx'
 import SubmitCry808 from './pages/SubmitCry808.jsx'
 import SubmitArtistHeat from './pages/SubmitArtistHeat.jsx'
+import SubmitGenius from './pages/SubmitGenius.jsx'
 
 export default function App() {
   return (
@@ -9,6 +10,7 @@ export default function App() {
       <Route path="/" element={<Home />} />
       <Route path="/submit-cry808" element={<SubmitCry808 />} />
       <Route path="/submit-artistheat" element={<SubmitArtistHeat />} />
+      <Route path="/submit-genius" element={<SubmitGenius />} />
     </Routes>
   )
 }

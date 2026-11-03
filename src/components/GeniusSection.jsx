@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import geniusCover from '../assets/Genius_cover.png'
 import artistExample from '../assets/Genius_Artist_Example.png'
 import lyricsExample from '../assets/Genius_Lyrics_Example.png'
@@ -37,10 +38,8 @@ export default function GeniusSection() {
             animation: 'spin-border-angle 3s linear infinite',
           }}
         >
-          <a
-            href="https://genius.com"
-            target="_blank"
-            rel="noopener noreferrer"
+          <Link
+            to="/submit-genius"
             className="group relative block w-full h-full overflow-hidden rounded-[14px]"
           >
             <img
@@ -56,11 +55,11 @@ export default function GeniusSection() {
                 I'll publish your music with lyrics, and I'll create an artist profile for you on Genius.
               </p>
               <span className="mt-4 inline-flex items-center gap-2 w-fit px-5 py-2 bg-yellow-400 group-hover:bg-yellow-300 text-black text-sm font-bold rounded-lg transition-colors">
-                Get Started
+                Buy Now: $5
                 <ArrowIcon className="w-4 h-4" />
               </span>
             </div>
-          </a>
+          </Link>
         </div>
 
         <ExamplePreview image={artistExample} label="Artist Profile" alt="Example Genius artist profile" />
