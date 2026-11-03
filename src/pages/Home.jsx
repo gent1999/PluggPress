@@ -135,6 +135,8 @@ const SERVICES = [
     accentTextClass: 'text-red-400',
     glowClass: 'bg-red-500',
     borderColor: 'red',
+    buyNowPath: '/submit-artistheat',
+    buyNowLabel: 'Buy Now: $5',
   },
 ]
 
