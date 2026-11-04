@@ -1,8 +1,8 @@
 function GlobeSvg({ fade }) {
   const maskImage =
     fade === 'left'
-      ? 'linear-gradient(to right, black 35%, transparent 85%)'
-      : 'linear-gradient(to left, black 35%, transparent 85%)'
+      ? 'linear-gradient(to right, black 30%, transparent 80%)'
+      : 'linear-gradient(to left, black 30%, transparent 80%)'
   return (
     <svg
       viewBox="0 0 400 400"
@@ -11,20 +11,25 @@ function GlobeSvg({ fade }) {
       style={{
         maskImage,
         WebkitMaskImage: maskImage,
-        filter: 'drop-shadow(0 0 3px rgba(155,112,201,0.35))',
+        filter: 'drop-shadow(0 0 4px rgba(217,70,239,0.35))',
       }}
       fill="none"
-      stroke="#9B70C9"
-      strokeWidth="1"
+      stroke="#dcc9f5"
+      strokeWidth="0.75"
       aria-hidden="true"
     >
-      {/* longitude lines */}
-      <circle cx="200" cy="200" r="180" />
-      <ellipse cx="200" cy="200" rx="70" ry="180" />
-      <ellipse cx="200" cy="200" rx="130" ry="180" />
-      {/* latitude lines */}
-      <ellipse cx="200" cy="200" rx="180" ry="70" />
-      <ellipse cx="200" cy="200" rx="180" ry="130" />
+      <circle cx="200" cy="200" r="170" />
+      {/* longitude (meridian) lines */}
+      <ellipse cx="200" cy="200" rx="154" ry="170" />
+      <ellipse cx="200" cy="200" rx="109" ry="170" />
+      <ellipse cx="200" cy="200" rx="44" ry="170" />
+      {/* latitude (parallel) lines */}
+      <ellipse cx="200" cy="142" rx="160" ry="35" />
+      <ellipse cx="200" cy="258" rx="160" ry="35" />
+      <ellipse cx="200" cy="91" rx="130" ry="29" />
+      <ellipse cx="200" cy="309" rx="130" ry="29" />
+      <ellipse cx="200" cy="53" rx="85" ry="19" />
+      <ellipse cx="200" cy="347" rx="85" ry="19" />
     </svg>
   )
 }
@@ -32,30 +37,21 @@ function GlobeSvg({ fade }) {
 export default function HeroGlobes() {
   return (
     <div className="pointer-events-none absolute inset-0 -z-10" aria-hidden="true">
-      {/* purple + yellow light anchored right on the visible edge of each globe,
-          using the same point-anchored radial technique as the page's other
-          corner glows so it fades smoothly with no box-edge seam */}
+      {/* magenta/purple light anchored right on the visible edge of each globe --
+          point-anchored radial glow so it fades smoothly with no box-edge seam */}
       <div
-        className="absolute left-0 top-[150px] h-[320px] w-[320px]"
-        style={{ transform: 'translate(-50%, -50%)', background: 'radial-gradient(circle, rgba(168,85,247,0.5) 0%, transparent 65%)' }}
+        className="absolute left-0 top-[60px] h-[320px] w-[320px]"
+        style={{ transform: 'translate(-50%, -50%)', background: 'radial-gradient(circle, rgba(217,70,239,0.38) 0%, rgba(168,85,247,0.22) 35%, transparent 68%)' }}
       />
       <div
-        className="absolute left-0 top-[340px] h-[300px] w-[300px]"
-        style={{ transform: 'translate(-50%, -50%)', background: 'radial-gradient(circle, rgba(250,204,21,0.32) 0%, transparent 65%)' }}
-      />
-      <div
-        className="absolute right-0 top-[110px] h-[300px] w-[300px]"
-        style={{ transform: 'translate(50%, -50%)', background: 'radial-gradient(circle, rgba(168,85,247,0.45) 0%, transparent 65%)' }}
-      />
-      <div
-        className="absolute right-0 top-[290px] h-[280px] w-[280px]"
-        style={{ transform: 'translate(50%, -50%)', background: 'radial-gradient(circle, rgba(250,204,21,0.28) 0%, transparent 65%)' }}
+        className="absolute right-0 top-[180px] h-[380px] w-[380px]"
+        style={{ transform: 'translate(50%, -50%)', background: 'radial-gradient(circle, rgba(217,70,239,0.34) 0%, rgba(168,85,247,0.2) 35%, transparent 68%)' }}
       />
 
-      <div style={{ position: 'absolute', left: '-190px', top: '50px', width: '380px', height: '380px', opacity: 0.38 }}>
+      <div style={{ position: 'absolute', left: '-190px', top: '-100px', width: '340px', height: '340px', opacity: 0.7 }}>
         <GlobeSvg fade="left" />
       </div>
-      <div style={{ position: 'absolute', right: '-170px', top: '20px', width: '340px', height: '340px', opacity: 0.32 }}>
+      <div style={{ position: 'absolute', right: '-230px', top: '10px', width: '380px', height: '380px', opacity: 0.62 }}>
         <GlobeSvg fade="right" />
       </div>
     </div>

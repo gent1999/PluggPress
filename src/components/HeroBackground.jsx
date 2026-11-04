@@ -11,23 +11,6 @@ export default function HeroBackground() {
         }}
       />
 
-      {/* ambient yellow/orange glow, centered right at the lower corners of the
-          hero/cards area -- anchored to a point (not an edge) so it radiates and
-          fades evenly with no boundary anywhere to clip against */}
-      <div
-        className="absolute left-0 top-[460px] h-[460px] w-[460px]"
-        style={{
-          transform: 'translate(-50%, -50%)',
-          background: 'radial-gradient(circle, rgba(251,146,60,0.14) 0%, rgba(251,146,60,0) 65%)',
-        }}
-      />
-      <div
-        className="absolute right-0 top-[460px] h-[460px] w-[460px]"
-        style={{
-          transform: 'translate(50%, -50%)',
-          background: 'radial-gradient(circle, rgba(250,204,21,0.12) 0%, rgba(250,204,21,0) 65%)',
-        }}
-      />
     </div>
   )
 }
