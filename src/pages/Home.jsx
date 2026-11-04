@@ -1,5 +1,6 @@
 import { Helmet } from 'react-helmet-async'
 import Navbar from '../components/Navbar.jsx'
+import HeroBackground from '../components/HeroBackground.jsx'
 import ServiceCard from '../components/ServiceCard.jsx'
 import ContactForm from '../components/ContactForm.jsx'
 import Footer from '../components/Footer.jsx'
@@ -148,26 +149,29 @@ export default function Home() {
         <meta name="description" content="PluggPress is the home base for our music properties and services — Cry808, ArtistHeat, and Genius lyrics + artist profiles." />
       </Helmet>
 
-      <div id="top" className="min-h-screen bg-zinc-950 text-white">
-        <Navbar />
+      <div id="top" className="min-h-screen bg-[#08080b] text-white">
+        <div className="relative isolate overflow-hidden">
+          <HeroBackground />
+          <Navbar />
 
-        {/* Hero — network + reviews, all above the fold */}
-        <section id="services" className="max-w-6xl mx-auto px-6 pt-8 pb-10">
-          <div className="mb-4">
-            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-amber-400 mb-2">Our network</p>
-            <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight leading-tight">
-              The sites we run.
-            </h1>
-            <p className="mt-1.5 text-white/50 text-xs sm:text-sm max-w-xl">
-              PluggPress is the home base for everything we build in music — pick a site below.
-            </p>
-          </div>
-          <div className="grid sm:grid-cols-2 gap-4">
-            {SERVICES.map((s) => (
-              <ServiceCard key={s.name} {...s} />
-            ))}
-          </div>
-        </section>
+          {/* Hero — network + reviews, all above the fold */}
+          <section id="services" className="max-w-6xl mx-auto px-6 pt-8 pb-10">
+            <div className="mb-4">
+              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-amber-400 mb-2">Our network</p>
+              <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight leading-tight">
+                The sites we run.
+              </h1>
+              <p className="mt-1.5 text-white/50 text-xs sm:text-sm max-w-xl">
+                PluggPress is the home base for everything we build in music — pick a site below.
+              </p>
+            </div>
+            <div className="grid sm:grid-cols-2 gap-4">
+              {SERVICES.map((s) => (
+                <ServiceCard key={s.name} {...s} />
+              ))}
+            </div>
+          </section>
+        </div>
 
         <GeniusSection />
 
