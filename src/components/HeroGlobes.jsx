@@ -8,9 +8,13 @@ function GlobeSvg({ fade }) {
       viewBox="0 0 400 400"
       width="100%"
       height="100%"
-      style={{ maskImage, WebkitMaskImage: maskImage }}
+      style={{
+        maskImage,
+        WebkitMaskImage: maskImage,
+        filter: 'drop-shadow(0 0 3px rgba(155,112,201,0.35))',
+      }}
       fill="none"
-      stroke="#c084fc"
+      stroke="#9B70C9"
       strokeWidth="1"
       aria-hidden="true"
     >
@@ -28,10 +32,10 @@ function GlobeSvg({ fade }) {
 export default function HeroGlobes() {
   return (
     <div className="pointer-events-none absolute inset-0 -z-10" aria-hidden="true">
-      <div style={{ position: 'absolute', left: '-190px', top: '50px', width: '380px', height: '380px', opacity: 0.25 }}>
+      <div style={{ position: 'absolute', left: '-190px', top: '50px', width: '380px', height: '380px', opacity: 0.38 }}>
         <GlobeSvg fade="left" />
       </div>
-      <div style={{ position: 'absolute', right: '-170px', top: '20px', width: '340px', height: '340px', opacity: 0.2 }}>
+      <div style={{ position: 'absolute', right: '-170px', top: '20px', width: '340px', height: '340px', opacity: 0.32 }}>
         <GlobeSvg fade="right" />
       </div>
     </div>
