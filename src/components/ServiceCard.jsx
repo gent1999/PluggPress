@@ -20,12 +20,12 @@ export default function ServiceCard({ name, tagline, description, url, domain, i
         animation: 'spin-border-angle 3s linear infinite',
       }}
     >
-      <div className="relative flex h-40 sm:h-48 overflow-hidden bg-zinc-950 rounded-[14px]">
+      <div className="relative flex flex-col sm:flex-row sm:h-60 overflow-hidden bg-zinc-950 rounded-[14px]">
         <a
           href={url}
           target="_blank"
           rel="noopener noreferrer"
-          className="group relative block w-[65%] flex-shrink-0 overflow-hidden"
+          className="group relative block w-full h-44 sm:h-full sm:w-[55%] flex-shrink-0 overflow-hidden"
         >
           <div className={`pointer-events-none absolute -top-24 -right-24 w-64 h-64 rounded-full blur-3xl opacity-20 group-hover:opacity-30 transition-opacity ${glowClass}`} />
           <img
@@ -41,34 +41,36 @@ export default function ServiceCard({ name, tagline, description, url, domain, i
           </div>
         </a>
 
-        <div className="relative flex flex-col flex-1 min-w-0 px-3 sm:px-4 py-3 sm:py-4">
-          <h3 className="text-base sm:text-lg font-extrabold text-white tracking-tight truncate">{name}</h3>
-          <p className="text-white/50 text-xs mt-1 line-clamp-2">{description}</p>
+        <div className="relative flex flex-col flex-1 min-w-0 justify-between p-4 sm:p-5">
+          <div>
+            <h3 className="text-lg sm:text-xl font-extrabold text-white tracking-tight truncate">{name}</h3>
+            <p className="text-white/50 text-xs sm:text-sm mt-1.5 line-clamp-2">{description}</p>
+          </div>
 
-          <div className="flex-1" />
+          <div className="mt-4 space-y-2.5">
+            {buyNowPath ? (
+              <Link
+                to={buyNowPath}
+                className="block w-full text-center px-4 py-2.5 bg-amber-400 hover:bg-amber-300 text-black text-sm font-bold rounded-lg transition-colors"
+              >
+                {buyNowLabel || 'Buy Now'}
+              </Link>
+            ) : (
+              <span className={`inline-block text-[10px] font-semibold uppercase tracking-wider ${accentTextClass}`}>{tagline}</span>
+            )}
 
-          {buyNowPath ? (
-            <Link
-              to={buyNowPath}
-              className="w-full text-center px-3 py-1.5 bg-amber-400 hover:bg-amber-300 text-black text-xs font-bold rounded-lg transition-colors"
+            <a
+              href={url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group flex items-center justify-center gap-1.5 text-xs font-semibold text-white/80 hover:text-white transition-colors"
             >
-              {buyNowLabel || 'Buy Now'}
-            </Link>
-          ) : (
-            <span className={`text-[10px] font-semibold uppercase tracking-wider ${accentTextClass}`}>{tagline}</span>
-          )}
-
-          <a
-            href={url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group mt-2 inline-flex items-center gap-1.5 text-xs font-semibold text-white/80 hover:text-white transition-colors"
-          >
-            Visit site
-            <svg className="w-4 h-4 transition-transform group-hover:translate-x-0.5" viewBox="0 0 20 20" fill="currentColor">
-              <path d="M10.293 3.293a1 1 0 011.414 0l5 5a1 1 0 010 1.414l-5 5a1 1 0 01-1.414-1.414L13.586 10H4a1 1 0 110-2h9.586l-3.293-3.293a1 1 0 010-1.414z" />
-            </svg>
-          </a>
+              Visit site
+              <svg className="w-4 h-4 transition-transform group-hover:translate-x-0.5" viewBox="0 0 20 20" fill="currentColor">
+                <path d="M10.293 3.293a1 1 0 011.414 0l5 5a1 1 0 010 1.414l-5 5a1 1 0 01-1.414-1.414L13.586 10H4a1 1 0 110-2h9.586l-3.293-3.293a1 1 0 010-1.414z" />
+              </svg>
+            </a>
+          </div>
         </div>
 
         <div className={`absolute bottom-0 left-0 right-0 h-1 ${accentClass} opacity-70`} />
