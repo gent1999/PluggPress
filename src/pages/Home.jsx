@@ -1,6 +1,7 @@
 import { Helmet } from 'react-helmet-async'
 import Navbar from '../components/Navbar.jsx'
 import HeroBackground from '../components/HeroBackground.jsx'
+import HeroGlobes from '../components/HeroGlobes.jsx'
 import ServiceCard from '../components/ServiceCard.jsx'
 import ContactForm from '../components/ContactForm.jsx'
 import Footer from '../components/Footer.jsx'
@@ -151,25 +152,29 @@ export default function Home() {
 
       <div id="top" className="relative isolate min-h-screen bg-[#08080b] text-white">
         <HeroBackground />
-        <Navbar />
 
-        {/* Hero — network + reviews, all above the fold */}
-        <section id="services" className="max-w-6xl mx-auto px-6 pt-6 pb-10">
-          <div className="mb-4 max-w-2xl">
-            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-amber-400 mb-2">Music media network</p>
-            <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight leading-tight">
-              Promote your music across the PluggPress network.
-            </h1>
-            <p className="mt-1.5 text-white/50 text-xs sm:text-sm">
-              Articles, Genius publishing, and targeted promotion for independent artists.
-            </p>
-          </div>
-          <div className="grid sm:grid-cols-2 gap-4">
-            {SERVICES.map((s) => (
-              <ServiceCard key={s.name} {...s} />
-            ))}
-          </div>
-        </section>
+        <div className="relative isolate overflow-hidden">
+          <HeroGlobes />
+          <Navbar />
+
+          {/* Hero — network + reviews, all above the fold */}
+          <section id="services" className="max-w-6xl mx-auto px-6 pt-6 pb-10">
+            <div className="mb-4 max-w-2xl">
+              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-amber-400 mb-2">Music media network</p>
+              <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight leading-tight">
+                Promote your music across the PluggPress network.
+              </h1>
+              <p className="mt-1.5 text-white/50 text-xs sm:text-sm">
+                Articles, Genius publishing, and targeted promotion for independent artists.
+              </p>
+            </div>
+            <div className="grid sm:grid-cols-2 gap-4">
+              {SERVICES.map((s) => (
+                <ServiceCard key={s.name} {...s} />
+              ))}
+            </div>
+          </section>
+        </div>
 
         <GeniusSection />
 
