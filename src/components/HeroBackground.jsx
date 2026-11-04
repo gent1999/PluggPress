@@ -1,21 +1,30 @@
 function GlobeWireframe({ className, fade }) {
-  const maskImage = `linear-gradient(${fade}deg, black 5%, transparent 68%)`
+  const maskImage = `linear-gradient(${fade}deg, black 20%, black 55%, transparent 85%)`
   return (
     <svg
       viewBox="0 0 400 400"
       className={className}
-      style={{ maskImage, WebkitMaskImage: maskImage }}
+      style={{
+        maskImage,
+        WebkitMaskImage: maskImage,
+        filter: 'drop-shadow(0 0 16px rgba(168,85,247,0.45))',
+      }}
       fill="none"
       stroke="currentColor"
-      strokeWidth="1"
+      strokeWidth="1.2"
       aria-hidden="true"
     >
-      <circle cx="200" cy="200" r="160" />
-      <ellipse cx="200" cy="200" rx="60" ry="160" />
-      <ellipse cx="200" cy="200" rx="120" ry="160" />
-      <ellipse cx="200" cy="200" rx="160" ry="40" />
-      <ellipse cx="200" cy="120" rx="145" ry="28" />
-      <ellipse cx="200" cy="280" rx="145" ry="28" />
+      {/* outer silhouette + meridians (longitude) */}
+      <circle cx="200" cy="200" r="170" />
+      <ellipse cx="200" cy="200" rx="55" ry="170" />
+      <ellipse cx="200" cy="200" rx="110" ry="170" />
+      <ellipse cx="200" cy="200" rx="150" ry="170" />
+      {/* parallels (latitude) */}
+      <ellipse cx="200" cy="200" rx="170" ry="38" />
+      <ellipse cx="200" cy="140" rx="160" ry="30" />
+      <ellipse cx="200" cy="260" rx="160" ry="30" />
+      <ellipse cx="200" cy="90" rx="110" ry="20" />
+      <ellipse cx="200" cy="310" rx="110" ry="20" />
     </svg>
   )
 }
@@ -52,8 +61,8 @@ export default function HeroBackground() {
       />
 
       {/* wireframe network-globe outlines, bleeding off the top corners */}
-      <GlobeWireframe className="absolute -top-20 -left-20 w-[300px] h-[300px] text-purple-300/20" fade={135} />
-      <GlobeWireframe className="absolute -top-20 -right-20 w-[300px] h-[300px] text-purple-300/20" fade={225} />
+      <GlobeWireframe className="absolute -top-28 -left-28 w-[420px] h-[420px] text-purple-300/30" fade={135} />
+      <GlobeWireframe className="absolute -top-28 -right-28 w-[420px] h-[420px] text-purple-300/30" fade={225} />
     </div>
   )
 }
