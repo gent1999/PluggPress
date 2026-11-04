@@ -1,7 +1,6 @@
 import { Helmet } from 'react-helmet-async'
 import Navbar from '../components/Navbar.jsx'
-import HeroBackground from '../components/HeroBackground.jsx'
-import HeroGlobes from '../components/HeroGlobes.jsx'
+import HeroImage from '../components/HeroImage.jsx'
 import ServiceCard from '../components/ServiceCard.jsx'
 import ContactForm from '../components/ContactForm.jsx'
 import Footer from '../components/Footer.jsx'
@@ -151,10 +150,8 @@ export default function Home() {
       </Helmet>
 
       <div id="top" className="relative isolate min-h-screen bg-[#08080b] text-white">
-        <HeroBackground />
-
         <div className="relative isolate overflow-hidden">
-          <HeroGlobes />
+          <HeroImage />
           <Navbar />
 
           {/* Hero — network + reviews, all above the fold */}
