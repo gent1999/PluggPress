@@ -20,63 +20,56 @@ export default function ServiceCard({ name, tagline, description, url, domain, i
         animation: 'spin-border-angle 3s linear infinite',
       }}
     >
-      <div className="relative overflow-hidden bg-zinc-950 rounded-[14px]">
+      <div className="relative flex h-40 sm:h-48 overflow-hidden bg-zinc-950 rounded-[14px]">
         <a
           href={url}
           target="_blank"
           rel="noopener noreferrer"
-          className="group relative block"
+          className="group relative block w-[65%] flex-shrink-0 overflow-hidden"
         >
           <div className={`pointer-events-none absolute -top-24 -right-24 w-64 h-64 rounded-full blur-3xl opacity-20 group-hover:opacity-30 transition-opacity ${glowClass}`} />
-
-          {/* Browser-chrome preview of the site's home page */}
-          <div className="relative bg-black/40 border-b border-white/10">
-            <div className="flex items-center gap-1.5 px-3 py-2">
-              <span className="w-2 h-2 rounded-full bg-white/15" />
-              <span className="w-2 h-2 rounded-full bg-white/15" />
-              <span className="w-2 h-2 rounded-full bg-white/15" />
-              <span className="ml-2 text-[10px] font-mono text-white/30">{domain}</span>
-            </div>
-            <div className="h-28 sm:h-32 overflow-hidden">
-              <img
-                src={image}
-                alt={`${name} home page`}
-                className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
-              />
-            </div>
+          <img
+            src={image}
+            alt={`${name} home page`}
+            className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
+          />
+          <div className="absolute top-0 left-0 flex items-center gap-1.5 px-2.5 py-1.5 bg-black/50">
+            <span className="w-1.5 h-1.5 rounded-full bg-white/30" />
+            <span className="w-1.5 h-1.5 rounded-full bg-white/30" />
+            <span className="w-1.5 h-1.5 rounded-full bg-white/30" />
+            <span className="ml-1.5 text-[9px] font-mono text-white/40">{domain}</span>
           </div>
         </a>
 
-        <div className="relative px-3 sm:px-4 pt-3 sm:pt-4">
-          <div className="flex items-center justify-between gap-3">
-            <h3 className="text-base sm:text-lg font-extrabold text-white tracking-tight">{name}</h3>
-            {buyNowPath ? (
-              <Link
-                to={buyNowPath}
-                className="flex-shrink-0 px-3 py-1.5 bg-amber-400 hover:bg-amber-300 text-black text-xs font-bold rounded-lg transition-colors"
-              >
-                {buyNowLabel || 'Buy Now'}
-              </Link>
-            ) : (
-              <span className={`text-[10px] font-semibold uppercase tracking-wider ${accentTextClass} flex-shrink-0`}>{tagline}</span>
-            )}
-          </div>
-        </div>
+        <div className="relative flex flex-col flex-1 min-w-0 px-3 sm:px-4 py-3 sm:py-4">
+          <h3 className="text-base sm:text-lg font-extrabold text-white tracking-tight truncate">{name}</h3>
+          <p className="text-white/50 text-xs mt-1 line-clamp-2">{description}</p>
 
-        <a
-          href={url}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="group relative block px-3 sm:px-4 pb-3 sm:pb-4"
-        >
-          <p className="text-white/50 text-xs mt-1 truncate">{description}</p>
-          <div className="mt-2 inline-flex items-center gap-1.5 text-xs font-semibold text-white/80 group-hover:text-white transition-colors">
+          <div className="flex-1" />
+
+          {buyNowPath ? (
+            <Link
+              to={buyNowPath}
+              className="w-full text-center px-3 py-1.5 bg-amber-400 hover:bg-amber-300 text-black text-xs font-bold rounded-lg transition-colors"
+            >
+              {buyNowLabel || 'Buy Now'}
+            </Link>
+          ) : (
+            <span className={`text-[10px] font-semibold uppercase tracking-wider ${accentTextClass}`}>{tagline}</span>
+          )}
+
+          <a
+            href={url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group mt-2 inline-flex items-center gap-1.5 text-xs font-semibold text-white/80 hover:text-white transition-colors"
+          >
             Visit site
             <svg className="w-4 h-4 transition-transform group-hover:translate-x-0.5" viewBox="0 0 20 20" fill="currentColor">
               <path d="M10.293 3.293a1 1 0 011.414 0l5 5a1 1 0 010 1.414l-5 5a1 1 0 01-1.414-1.414L13.586 10H4a1 1 0 110-2h9.586l-3.293-3.293a1 1 0 010-1.414z" />
             </svg>
-          </div>
-        </a>
+          </a>
+        </div>
 
         <div className={`absolute bottom-0 left-0 right-0 h-1 ${accentClass} opacity-70`} />
       </div>
