@@ -20,6 +20,12 @@ export default function Contact() {
               <p className="text-xs font-semibold uppercase tracking-[0.2em] text-amber-400 mb-2">Get in touch</p>
               <h1 className="text-2xl sm:text-3xl font-bold">Work with us</h1>
               <p className="mt-2 text-white/50 text-sm">Questions about Cry808, ArtistHeat, Genius, or something new — send it over.</p>
+              <p className="mt-4 text-sm">
+                Or email us directly at{' '}
+                <a href="mailto:contact@pluggpress.com" className="text-amber-400 hover:text-amber-300 font-medium transition-colors">
+                  contact@pluggpress.com
+                </a>
+              </p>
             </div>
             <ContactForm />
           </div>
