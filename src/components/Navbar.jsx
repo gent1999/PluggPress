@@ -12,9 +12,9 @@ const chipBgStyle = {
 export default function Navbar() {
   return (
     <div className="sticky top-0 z-50 pt-3 px-3 sm:pt-4 sm:px-6 flex items-center justify-between max-w-6xl mx-auto">
-      <a href="#top" className="flex items-center">
+      <Link to="/" className="flex items-center">
         <Logo className="h-20 sm:h-28 w-auto" />
-      </a>
+      </Link>
       <nav
         className="flex items-center gap-1 rounded-2xl px-2 py-2 text-sm font-medium text-white/70 shadow-lg shadow-black/60"
         style={{
@@ -29,7 +29,7 @@ export default function Navbar() {
           animation: 'spin-border-angle 3s linear infinite',
         }}
       >
-        <a href="#services" className="px-3 py-1.5 rounded-xl hover:bg-white/10 hover:text-white transition-colors">Network</a>
+        <a href="/#services" className="px-3 py-1.5 rounded-xl hover:bg-white/10 hover:text-white transition-colors">Network</a>
         <Link to="/contact" className="px-3 py-1.5 rounded-xl hover:bg-white/10 hover:text-white transition-colors">Contact</Link>
       </nav>
     </div>
