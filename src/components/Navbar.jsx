@@ -11,7 +11,7 @@ const chipBgStyle = {
 
 export default function Navbar() {
   return (
-    <div className="sticky top-0 z-50 pt-3 px-3 sm:pt-4 sm:px-6 flex items-center justify-between max-w-6xl mx-auto">
+    <div className="sticky top-0 z-50 pt-3 px-3 sm:pt-4 sm:px-6 flex items-center justify-between w-full max-w-6xl mx-auto">
       <Link to="/" className="flex items-center">
         <Logo className="h-20 sm:h-28 w-auto" />
       </Link>
