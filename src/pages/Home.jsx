@@ -2,7 +2,6 @@ import { Helmet } from 'react-helmet-async'
 import Navbar from '../components/Navbar.jsx'
 import HeroImage from '../components/HeroImage.jsx'
 import ServiceCard from '../components/ServiceCard.jsx'
-import ContactForm from '../components/ContactForm.jsx'
 import Footer from '../components/Footer.jsx'
 import Reviews from '../components/Reviews.jsx'
 import GeniusSection from '../components/GeniusSection.jsx'
@@ -176,18 +175,6 @@ export default function Home() {
         <GeniusSection />
 
         <Reviews reviews={REVIEWS} />
-
-        {/* Contact */}
-        <section id="contact" className="max-w-6xl mx-auto px-6 py-16">
-          <div className="max-w-xl mx-auto">
-            <div className="mb-8 text-center">
-              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-amber-400 mb-2">Get in touch</p>
-              <h2 className="text-2xl sm:text-3xl font-bold">Work with us</h2>
-              <p className="mt-2 text-white/50 text-sm">Questions about Cry808, ArtistHeat, Genius, or something new — send it over.</p>
-            </div>
-            <ContactForm />
-          </div>
-        </section>
 
         <Footer />
       </div>

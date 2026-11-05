@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import navbarBg from '../assets/yellow-navbar-background.png'
 import Logo from './Logo.jsx'
 
@@ -29,7 +30,7 @@ export default function Navbar() {
         }}
       >
         <a href="#services" className="px-3 py-1.5 rounded-xl hover:bg-white/10 hover:text-white transition-colors">Network</a>
-        <a href="#contact" className="px-3 py-1.5 rounded-xl hover:bg-white/10 hover:text-white transition-colors">Contact</a>
+        <Link to="/contact" className="px-3 py-1.5 rounded-xl hover:bg-white/10 hover:text-white transition-colors">Contact</Link>
       </nav>
     </div>
   )
