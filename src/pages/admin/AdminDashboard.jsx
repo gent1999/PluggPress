@@ -20,23 +20,86 @@ function MetricCard({ label, value, meta }) {
   )
 }
 
-function MonthlyBars({ monthly }) {
-  const recent = monthly.slice(-6)
-  const max = Math.max(1, ...recent.map((m) => m.visitors))
+function TrafficChart({ monthly }) {
+  const [hovered, setHovered] = useState(null)
+
+  const values = monthly.map((point) => Math.max(0, +point.visitors || 0))
+  const max = Math.max(...values, 1)
+  const chartWidth = 760
+  const chartHeight = 280
+  const left = 48
+  const right = 20
+  const top = 20
+  const bottom = 40
+  const plotWidth = chartWidth - left - right
+  const plotHeight = chartHeight - top - bottom
+  const divisor = Math.max(values.length - 1, 1)
+  const points = values.map((value, index) => [
+    left + (index / divisor) * plotWidth,
+    top + plotHeight - (value / max) * plotHeight,
+  ])
+  const d = points.map(([x, y], index) => `${index === 0 ? 'M' : 'L'} ${x} ${y}`).join(' ')
+  const area = `${d} L ${points.at(-1)[0]} ${chartHeight - bottom} L ${points[0][0]} ${chartHeight - bottom} Z`
+  const yTicks = [0, 0.25, 0.5, 0.75, 1].map((ratio) => ({
+    y: top + plotHeight - ratio * plotHeight,
+    value: Math.round(max * ratio),
+  }))
+  const labelStep = Math.max(1, Math.ceil(monthly.length / 9))
+
   return (
-    <div className="flex items-end gap-3 h-28">
-      {recent.map((m) => (
-        <div key={m.yearMonth} className="flex-1 flex flex-col items-center gap-1.5">
-          <div className="w-full flex-1 flex items-end">
-            <div
-              className="w-full bg-amber-400/80 rounded-t-sm"
-              style={{ height: `${Math.max(4, (m.visitors / max) * 100)}%` }}
-              title={`${m.label}: ${num(m.visitors)} visitors`}
+    <div className="relative">
+      <svg viewBox={`0 0 ${chartWidth} ${chartHeight}`} className="w-full overflow-visible">
+        <defs>
+          <linearGradient id="pluggTrafficLine" x1="0" x2="1" y1="0" y2="0">
+            <stop offset="0%" stopColor="#fbbf24" />
+            <stop offset="55%" stopColor="#c084fc" />
+            <stop offset="100%" stopColor="#fbbf24" />
+          </linearGradient>
+          <linearGradient id="pluggTrafficArea" x1="0" x2="0" y1="0" y2="1">
+            <stop offset="0%" stopColor="#fbbf24" stopOpacity="0.22" />
+            <stop offset="100%" stopColor="#fbbf24" stopOpacity="0" />
+          </linearGradient>
+        </defs>
+        {yTicks.map(({ y, value }) => (
+          <g key={y}>
+            <line x1={left} x2={chartWidth - right} y1={y} y2={y} stroke="rgba(255,255,255,.08)" />
+            <text x="4" y={y + 4} fill="rgba(255,255,255,.3)" fontSize="11">{num(value)}</text>
+          </g>
+        ))}
+        <path d={area} fill="url(#pluggTrafficArea)" />
+        <path d={d} fill="none" stroke="url(#pluggTrafficLine)" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
+        {points.map(([x, y], index) => (
+          <g key={monthly[index]?.yearMonth || index}>
+            <circle cx={x} cy={y} r="4" fill="#08080b" stroke="#fbbf24" strokeWidth="2.2" />
+            <circle
+              cx={x}
+              cy={y}
+              r="14"
+              fill="transparent"
+              className="cursor-crosshair"
+              onMouseEnter={() => setHovered({
+                label: monthly[index]?.label,
+                visitors: monthly[index]?.visitors,
+                left: `${(x / chartWidth) * 100}%`,
+                top: `${(y / chartHeight) * 100}%`,
+              })}
+              onMouseLeave={() => setHovered(null)}
             />
-          </div>
-          <span className="text-[10px] text-white/30">{m.label}</span>
+            {(index % labelStep === 0 || index === points.length - 1) && (
+              <text x={x} y={chartHeight - 10} textAnchor="middle" fill="rgba(255,255,255,.4)" fontSize="12">{monthly[index]?.label}</text>
+            )}
+          </g>
+        ))}
+      </svg>
+      {hovered && (
+        <div
+          className="pointer-events-none absolute z-10 border border-white/10 bg-[#0d0d10]/95 px-3 py-2 text-xs rounded-lg shadow-lg backdrop-blur-md"
+          style={{ left: hovered.left, top: hovered.top, transform: 'translate(-50%, calc(-100% - 12px))' }}
+        >
+          <div className="font-semibold text-white">{num(hovered.visitors)} visits</div>
+          <div className="mt-0.5 text-white/40">{hovered.label}</div>
         </div>
-      ))}
+      )}
     </div>
   )
 }
@@ -153,7 +216,7 @@ export default function AdminDashboard() {
               </div>
               {analytics.monthly?.length > 0 && (
                 <div className="mt-4 border border-white/10 rounded-2xl p-5 bg-white/[0.02]">
-                  <MonthlyBars monthly={analytics.monthly} />
+                  <TrafficChart monthly={analytics.monthly} />
                 </div>
               )}
             </div>
