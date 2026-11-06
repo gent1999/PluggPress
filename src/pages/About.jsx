@@ -125,7 +125,7 @@ export default function About() {
           <section className="max-w-3xl mx-auto px-6 pt-10 pb-14 sm:pt-14">
             <p className="text-xs font-semibold uppercase tracking-[0.2em] text-amber-400 mb-3">About</p>
             <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight leading-tight">
-              Hi, I'm Mahmoud.
+              Hi, I'm Jamal K.
             </h1>
             <div className="mt-4 space-y-4 text-white/60 text-sm sm:text-base leading-relaxed">
               <p>
