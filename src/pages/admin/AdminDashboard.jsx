@@ -8,12 +8,48 @@ const API_URL = import.meta.env.VITE_API_URL
 const fmtDate = (d) =>
   new Date(d).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric', hour: '2-digit', minute: '2-digit' })
 
+const num = (n) => (+n || 0).toLocaleString()
+
+function MetricCard({ label, value, meta }) {
+  return (
+    <div className="border border-white/10 rounded-xl p-4 bg-white/[0.02]">
+      <p className="text-[11px] font-semibold uppercase tracking-wider text-white/40">{label}</p>
+      <p className="mt-1.5 text-2xl font-extrabold text-white">{value}</p>
+      {meta && <p className="mt-0.5 text-xs text-white/30">{meta}</p>}
+    </div>
+  )
+}
+
+function MonthlyBars({ monthly }) {
+  const recent = monthly.slice(-6)
+  const max = Math.max(1, ...recent.map((m) => m.visitors))
+  return (
+    <div className="flex items-end gap-3 h-28">
+      {recent.map((m) => (
+        <div key={m.yearMonth} className="flex-1 flex flex-col items-center gap-1.5">
+          <div className="w-full flex-1 flex items-end">
+            <div
+              className="w-full bg-amber-400/80 rounded-t-sm"
+              style={{ height: `${Math.max(4, (m.visitors / max) * 100)}%` }}
+              title={`${m.label}: ${num(m.visitors)} visitors`}
+            />
+          </div>
+          <span className="text-[10px] text-white/30">{m.label}</span>
+        </div>
+      ))}
+    </div>
+  )
+}
+
 export default function AdminDashboard() {
   const navigate = useNavigate()
   const [admin, setAdmin] = useState(null)
   const [leads, setLeads] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
+  const [analytics, setAnalytics] = useState(null)
+  const [analyticsMessage, setAnalyticsMessage] = useState('')
+  const [analyticsLoading, setAnalyticsLoading] = useState(true)
 
   const token = () => localStorage.getItem('adminToken')
   const logout = () => {
@@ -42,6 +78,15 @@ export default function AdminDashboard() {
       .then((data) => setLeads(data.leads || []))
       .catch(() => setError('Could not load leads.'))
       .finally(() => setLoading(false))
+
+    fetch(`${API_URL}/api/analytics/visitors`, { headers: { Authorization: `Bearer ${tok}` } })
+      .then((res) => res.json().then((data) => ({ ok: res.ok, data })))
+      .then(({ ok, data }) => {
+        setAnalytics(data.visitors || null)
+        if (!ok) setAnalyticsMessage(data.message || 'Analytics is not connected yet.')
+      })
+      .catch(() => setAnalyticsMessage('Could not load analytics.'))
+      .finally(() => setAnalyticsLoading(false))
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
@@ -83,7 +128,40 @@ export default function AdminDashboard() {
         <main className="max-w-5xl mx-auto px-6 py-10">
           <div className="mb-8">
             <p className="text-xs font-semibold uppercase tracking-[0.2em] text-amber-400 mb-2">Dashboard</p>
-            <h1 className="text-2xl font-bold">Contact form messages</h1>
+            <h1 className="text-2xl font-bold">Analytics</h1>
+            <p className="text-white/40 text-sm mt-1">Traffic to pluggpress.com, from Google Analytics.</p>
+          </div>
+
+          {analyticsLoading ? (
+            <p className="text-white/40 text-sm mb-12">Loading…</p>
+          ) : analyticsMessage ? (
+            <div className="mb-12 border border-white/10 rounded-2xl p-6 text-center">
+              <p className="text-white/40 text-sm">{analyticsMessage}</p>
+            </div>
+          ) : (
+            <div className="mb-12">
+              <div className="grid grid-cols-2 sm:grid-cols-5 gap-3">
+                <MetricCard label="Live Now" value={num(analytics.realtime)} meta="Active visitors" />
+                <MetricCard
+                  label="This Month"
+                  value={num(analytics.current)}
+                  meta={analytics.change ? `${analytics.change >= 0 ? '+' : ''}${analytics.change}% vs last month` : undefined}
+                />
+                <MetricCard label="Last Month" value={num(analytics.previous)} />
+                <MetricCard label="All Time" value={num(analytics.allTime)} />
+                <MetricCard label="Avg Monthly" value={num(analytics.average)} />
+              </div>
+              {analytics.monthly?.length > 0 && (
+                <div className="mt-4 border border-white/10 rounded-2xl p-5 bg-white/[0.02]">
+                  <MonthlyBars monthly={analytics.monthly} />
+                </div>
+              )}
+            </div>
+          )}
+
+          <div className="mb-8">
+            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-amber-400 mb-2">Inbox</p>
+            <h2 className="text-2xl font-bold">Contact form messages</h2>
             <p className="text-white/40 text-sm mt-1">Everything submitted through the PluggPress contact page.</p>
           </div>
 
