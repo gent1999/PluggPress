@@ -104,6 +104,38 @@ function TrafficChart({ monthly }) {
   )
 }
 
+function SearchTable({ title, rows, firstColumn }) {
+  return (
+    <div className="min-w-0">
+      <p className="text-xs font-semibold text-white/50 uppercase tracking-wider mb-2">{title}</p>
+      <div className="border border-white/10 rounded-xl overflow-hidden">
+        <table className="w-full text-left text-sm">
+          <thead className="bg-white/[0.03] text-[11px] text-white/40">
+            <tr>
+              <th className="px-3 py-2 font-medium">{firstColumn}</th>
+              <th className="px-3 py-2 text-right font-medium">Clicks</th>
+              <th className="px-3 py-2 text-right font-medium">Impr.</th>
+              <th className="px-3 py-2 text-right font-medium">CTR</th>
+            </tr>
+          </thead>
+          <tbody className="divide-y divide-white/[0.06]">
+            {rows.length ? rows.map((row, i) => (
+              <tr key={`${row.label}-${i}`} className="hover:bg-white/[0.02] transition-colors">
+                <td className="px-3 py-2 max-w-[200px] truncate text-white/70">{row.label}</td>
+                <td className="px-3 py-2 text-right font-medium text-amber-400">{num(row.clicks)}</td>
+                <td className="px-3 py-2 text-right text-white/50">{num(row.impressions)}</td>
+                <td className="px-3 py-2 text-right text-purple-300">{row.ctr}%</td>
+              </tr>
+            )) : (
+              <tr><td colSpan="4" className="px-3 py-6 text-center text-white/30">No data yet</td></tr>
+            )}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  )
+}
+
 export default function AdminDashboard() {
   const navigate = useNavigate()
   const [admin, setAdmin] = useState(null)
@@ -113,6 +145,11 @@ export default function AdminDashboard() {
   const [analytics, setAnalytics] = useState(null)
   const [analyticsMessage, setAnalyticsMessage] = useState('')
   const [analyticsLoading, setAnalyticsLoading] = useState(true)
+  const [seo, setSeo] = useState(null)
+  const [seoQueries, setSeoQueries] = useState([])
+  const [seoPages, setSeoPages] = useState([])
+  const [seoMessage, setSeoMessage] = useState('')
+  const [seoLoading, setSeoLoading] = useState(true)
 
   const token = () => localStorage.getItem('adminToken')
   const logout = () => {
@@ -150,6 +187,24 @@ export default function AdminDashboard() {
       })
       .catch(() => setAnalyticsMessage('Could not load analytics.'))
       .finally(() => setAnalyticsLoading(false))
+
+    const hdrs = { Authorization: `Bearer ${tok}` }
+    Promise.all([
+      fetch(`${API_URL}/api/search-console/performance`, { headers: hdrs }),
+      fetch(`${API_URL}/api/search-console/top-queries`, { headers: hdrs }),
+      fetch(`${API_URL}/api/search-console/top-pages`, { headers: hdrs }),
+    ])
+      .then(async ([perfRes, queriesRes, pagesRes]) => {
+        const perfData = await perfRes.json()
+        setSeo(perfData.performance || null)
+        if (!perfRes.ok) setSeoMessage(perfData.message || 'Search Console is not connected yet.')
+        const queriesData = await queriesRes.json()
+        setSeoQueries(queriesData.queries || [])
+        const pagesData = await pagesRes.json()
+        setSeoPages(pagesData.pages || [])
+      })
+      .catch(() => setSeoMessage('Could not load Search Console.'))
+      .finally(() => setSeoLoading(false))
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
@@ -224,6 +279,41 @@ export default function AdminDashboard() {
                     </p>
                   </div>
                 )}
+              </div>
+            </div>
+          )}
+
+          <div className="mb-8">
+            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-purple-400 mb-2">Search</p>
+            <h2 className="text-2xl font-bold">Search Console</h2>
+            <p className="text-white/40 text-sm mt-1">How pluggpress.com shows up in Google Search, last 28 days.</p>
+          </div>
+
+          {seoLoading ? (
+            <p className="text-white/40 text-sm mb-12">Loading…</p>
+          ) : seoMessage ? (
+            <div className="mb-12 border border-white/10 rounded-2xl p-6 text-center">
+              <p className="text-white/40 text-sm">{seoMessage}</p>
+            </div>
+          ) : (
+            <div className="mb-12">
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-4">
+                <MetricCard label="Clicks" value={num(seo.clicks)} />
+                <MetricCard label="Impressions" value={num(seo.impressions)} />
+                <MetricCard label="CTR" value={`${seo.ctr || 0}%`} />
+                <MetricCard label="Avg Position" value={seo.position || 0} />
+              </div>
+              <div className="grid sm:grid-cols-2 gap-4">
+                <SearchTable
+                  title="Top Keywords"
+                  firstColumn="Keyword"
+                  rows={seoQueries.slice(0, 6).map((q) => ({ label: q.query, clicks: q.clicks, impressions: q.impressions, ctr: q.ctr }))}
+                />
+                <SearchTable
+                  title="Top Pages"
+                  firstColumn="Page"
+                  rows={seoPages.slice(0, 6).map((p) => ({ label: p.page?.replace(/^https?:\/\/[^/]+/, '') || '/', clicks: p.clicks, impressions: p.impressions, ctr: p.ctr }))}
+                />
               </div>
             </div>
           )}
