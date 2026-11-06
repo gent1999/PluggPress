@@ -5,6 +5,9 @@ import cry808Logo from '../assets/about/cry808-logo.png'
 import artistHeatLogo from '../assets/about/artistheat-logo.png'
 import overallsLogo from '../assets/about/2koveralls-logo.png'
 import geniusLogo from '../assets/about/genius-logo.png'
+import fiverrLogo from '../assets/about/fiverr-logo.png'
+import oneSubmitLogo from '../assets/about/one-submit-logo.jpg'
+import musosoupLogo from '../assets/about/musosoup-logo.jpg'
 
 const PUBLICATIONS = [
   {
@@ -38,6 +41,7 @@ const PLATFORMS = [
     name: 'Fiverr',
     description: 'Where it all started — write-ups, Genius placements, and promo gigs.',
     url: 'https://www.fiverr.com',
+    logo: fiverrLogo,
     accent: 'text-emerald-400',
     ring: 'border-emerald-400/25 hover:border-emerald-400/50',
   },
@@ -53,6 +57,7 @@ const PLATFORMS = [
     name: 'One Submit',
     description: 'Playlist, blog, and curator submissions for independent artists.',
     url: 'https://www.one-submit.com',
+    logo: oneSubmitLogo,
     accent: 'text-amber-400',
     ring: 'border-amber-400/25 hover:border-amber-400/50',
   },
@@ -60,6 +65,7 @@ const PLATFORMS = [
     name: 'Musosoup',
     description: 'Pay-as-you-go PR and curator coverage.',
     url: 'https://musosoup.com',
+    logo: musosoupLogo,
     accent: 'text-purple-400',
     ring: 'border-purple-400/25 hover:border-purple-400/50',
   },
@@ -92,11 +98,7 @@ function PlatformBadge({ name, description, url, logo, accent, ring }) {
       className={`flex flex-col p-5 rounded-2xl bg-white/[0.03] border transition-colors ${ring}`}
     >
       <div className="flex items-center gap-2.5">
-        {logo ? (
-          <img src={logo} alt={`${name} logo`} className="w-6 h-6 rounded-full object-cover" />
-        ) : (
-          <span className={`w-2 h-2 rounded-full ${accent.replace('text-', 'bg-')}`} />
-        )}
+        <img src={logo} alt={`${name} logo`} className="w-6 h-6 rounded-full object-cover" />
         <span className={`font-bold ${accent}`}>{name}</span>
       </div>
       <p className="mt-2 text-white/50 text-xs leading-relaxed">{description}</p>

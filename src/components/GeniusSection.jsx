@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
-import geniusCover from '../assets/Genius_cover.png'
-import artistExample from '../assets/Genius_Artist_Example.png'
-import lyricsExample from '../assets/Genius_Lyrics_Example.png'
+import geniusCover from '../assets/genius/Genius_cover.png'
+import artistExample from '../assets/genius/Genius_Artist_Example.png'
+import lyricsExample from '../assets/genius/Genius_Lyrics_Example.png'
 
 const CARD_HEIGHT = 'h-64 sm:h-72'
 

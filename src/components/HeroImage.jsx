@@ -1,6 +1,6 @@
-import mobileBg from '../assets/background-mobile.webp'
-import tabletBg from '../assets/background-tablet.webp'
-import desktopBg from '../assets/background-desktop.webp'
+import mobileBg from '../assets/backgrounds/background-mobile.webp'
+import tabletBg from '../assets/backgrounds/background-tablet.webp'
+import desktopBg from '../assets/backgrounds/background-desktop.webp'
 
 export default function HeroImage() {
   const maskImage = 'linear-gradient(to bottom, black 0%, black 70%, transparent 100%)'

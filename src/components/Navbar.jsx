@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import navbarBg from '../assets/yellow-navbar-background.png'
+import navbarBg from '../assets/backgrounds/yellow-navbar-background.png'
 import Logo from './Logo.jsx'
 
 const chipBgStyle = {
