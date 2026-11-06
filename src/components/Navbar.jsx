@@ -29,7 +29,7 @@ export default function Navbar() {
           animation: 'spin-border-angle 3s linear infinite',
         }}
       >
-        <a href="/#services" className="px-3 py-1.5 rounded-xl hover:bg-white/10 hover:text-white transition-colors">Network</a>
+        <Link to="/about" className="px-3 py-1.5 rounded-xl hover:bg-white/10 hover:text-white transition-colors">About</Link>
         <Link to="/contact" className="px-3 py-1.5 rounded-xl hover:bg-white/10 hover:text-white transition-colors">Contact</Link>
         <a
           href="https://instagram.com/pluggpress"
