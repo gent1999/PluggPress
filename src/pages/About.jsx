@@ -40,7 +40,7 @@ const PLATFORMS = [
   {
     name: 'Fiverr',
     description: 'Where it all started — write-ups, Genius placements, and promo gigs.',
-    url: 'https://www.fiverr.com',
+    url: 'https://www.fiverr.com/kay2_designs?public_mode=true',
     logo: fiverrLogo,
     accent: 'text-emerald-400',
     ring: 'border-emerald-400/25 hover:border-emerald-400/50',
