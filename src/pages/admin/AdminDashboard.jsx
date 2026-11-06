@@ -214,11 +214,17 @@ export default function AdminDashboard() {
                 <MetricCard label="All Time" value={num(analytics.allTime)} />
                 <MetricCard label="Avg Monthly" value={num(analytics.average)} />
               </div>
-              {analytics.monthly?.length > 0 && (
-                <div className="mt-4 border border-white/10 rounded-2xl p-5 bg-white/[0.02]">
+              <div className="mt-4 border border-white/10 rounded-2xl p-5 bg-white/[0.02]">
+                {analytics.monthly?.length > 0 ? (
                   <TrafficChart monthly={analytics.monthly} />
-                </div>
-              )}
+                ) : (
+                  <div className="h-56 flex items-center justify-center text-center">
+                    <p className="text-white/30 text-sm">
+                      Monthly traffic will show up here once Google Analytics has processed a full day of data.
+                    </p>
+                  </div>
+                )}
+              </div>
             </div>
           )}
 
