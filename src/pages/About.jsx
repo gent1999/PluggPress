@@ -56,7 +56,7 @@ const PLATFORMS = [
   {
     name: 'One Submit',
     description: 'Playlist, blog, and curator submissions for independent artists.',
-    url: 'https://www.one-submit.com',
+    url: 'https://app.one-submit.com/direct-submit/29774/2468/5674/pluggpress-blog-Music-Promotion',
     logo: oneSubmitLogo,
     accent: 'text-amber-400',
     ring: 'border-amber-400/25 hover:border-amber-400/50',
