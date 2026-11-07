@@ -48,7 +48,7 @@ const PLATFORMS = [
   {
     name: 'Genius',
     description: 'Lyrics publishing and artist profile creation.',
-    url: 'https://genius.com',
+    url: 'https://genius.com/pluggpress',
     logo: geniusLogo,
     accent: 'text-yellow-400',
     ring: 'border-yellow-400/25 hover:border-yellow-400/50',
